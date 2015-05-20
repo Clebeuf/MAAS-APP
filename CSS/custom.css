@@ -1,0 +1,62 @@
+/*body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}*/
+
+
+body {
+        font-family: "Helvetica Neue", Helvetica;
+      }
+    
+      /* tell the SVG path to be a thin blue line without any area fill */
+      path {
+        fill: none;
+      }
+      
+      .data1 {
+        stroke: steelblue;
+        stroke-width:2px;
+      }
+
+      .data2 {
+        stroke: orange;
+        stroke-width:2px;
+      }
+      
+      .axis {
+        shape-rendering: crispEdges;
+      }
+
+      .x.axis line, .x.axis path {
+        fill: none;
+        stroke: #333;
+      }
+
+      .x.axis text {
+        font-size: 1em;
+      }
+
+      .y.axis line, .y.axis path {
+        fill: none;
+        stroke: #333;
+      }
+      
+      .y.axis text {
+        font-size: 1em;
+      }

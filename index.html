@@ -9,9 +9,6 @@
 		<!-- jQuery min (JUST IN CASE) -->
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
-		<!-- include custom js script -->
-		<script src="js/custom.js"></script>
-
 		<!-- BOOTSTRAP COMPONENTS-->
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -28,12 +25,25 @@
 
 	<body>
 
-		hello world
+		<div class="container" id="main-container">
+
+			Some sort of intro / summary stats / control here
+
+			<!-- container that holds the graph -->
+			<div id="graph" class="aGraph"></div>
+
+		</div>
+
 
 		<div class="footer">
 			© 2015 All rights reserved
 		<div>
 
+		<!-- D3.js script -->
+		<script src="http://d3js.org/d3.v3.js"></script>
+
+		<!-- include custom js script -->
+		<script src="js/custom.js"></script>
 	</body>
 
 </html>
