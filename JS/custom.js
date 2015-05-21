@@ -8,11 +8,11 @@
 			
 
 		// data hard coded in for now
-		var data = [["October 13, 2014 11:13:00",17,17],["October 14, 2014 11:13:00",17,12],["October 15, 2014 11:13:00",18,27],["October 16, 2014 11:13:00",17,17],["October 17, 2014 11:13:00",17,16],["October 18, 2014 11:13:00",17,12],["October 19, 2014 11:13:00",17,15],["October 20, 2014 11:13:00",17,15],["October 21, 2014 11:13:00",18,13],["October 22, 2014 11:13:00",18,13]];
+		//var data = [["October 13, 2014 11:13:00",17,17],["October 14, 2014 11:13:00",17,12],["October 15, 2014 11:13:00",18,27],["October 16, 2014 11:13:00",17,17],["October 17, 2014 11:13:00",17,16],["October 18, 2014 11:13:00",17,12],["October 19, 2014 11:13:00",17,15],["October 20, 2014 11:13:00",17,15],["October 21, 2014 11:13:00",18,13],["October 22, 2014 11:13:00",18,13]];
 		
 		// start time and end time hard coded in for now
-		var startTime = new Date("October 13, 2014 11:13:00");
-		var endTime = new Date("October 23, 2014 11:13:00");
+		//var startTime = new Date("October 13, 2014 11:13:00");
+		//var endTime = new Date("October 23, 2014 11:13:00");
 		
 		// X scale
 		var x = d3.time.scale().domain([startTime, endTime]).range([0, w]);
@@ -20,7 +20,7 @@
 
 
 		// range (y) is hard coded in until it gets swtiched to json
-		var y = d3.scale.linear().domain([0, 30]).range([h, 0]);
+		var y = d3.scale.linear().domain([min_temp, max_temp]).range([h, 0]);
 
 		// create a line function that can convert data[] into x and y points
 		var line1 = d3.svg.line()
