@@ -24,132 +24,115 @@
 
 	<body>
 
-	<?php
+		<?php
+			date_default_timezone_set('UTC');
 
+			// GET LATEST DATA
 
-		// GET LATEST DATA
-
-		// Get cURL resource
-		$curl = curl_init();
-		// Set some options - we are passing in a useragent too here
-		curl_setopt_array($curl, array(
-		    CURLOPT_RETURNTRANSFER => 1,
-		    CURLOPT_URL => "http://marsweather.ingenology.com/v1/latest/"
-		));
-		// Send the request & save response to $resp
-		$resp = curl_exec($curl);
-		// Close request to clear up some resources
-		curl_close($curl);
-
-		$latestData = json_decode($resp, true);
-
-		$output = "<script>console.log( 'Debug Objects: " . $latestData[report][terrestrial_date] . "' );</script>";
-		
-		$latestDayMars = $latestData[report][sol];
-		echo "Day on Mars = " . $latestDayMars;
-
-		$latestDateEarth = $latestData[report][terrestrial_date];
-		echo "<br>Date on Earth = " . $latestDateEarth;
-
-		$latestMinTemp = $latestData[report][min_temp];
-		echo "<br>Min Temp = " . $latestMinTemp;
-
-		$latestMaxTemp = $latestData[report][max_temp];
-		echo "<br>Max Temp = " . $latestMaxTemp;
-
-		$latestPressure = $latestData[report][pressure];
-		$latestPressureString = $latestData[report][pressure_string];
-		echo "<br>Pressure = " . $latestPressure . ", " . $latestPressureString;
-
-		$latestHumidity = $latestData[report][abs_humidity];
-		echo "<br>Humidity = " . $latestHumidity;
-
-		$latestWindSpeed = $latestData[report][wind_speed];
-		$latestWindDirection = $latestData[report][wind_direction];
-		echo "<br>Wind = " . $latestWindSpeed . ", " . $latestWindDirection;
-
-		$latestWeather = $latestData[report][atmo_opacity];
-		echo "<br>Weather = " . $latestWeather;
-		
-		$latestSeason = $latestData[report][season];
-		echo "<br>Season = " . $latestSeason;
-
-		$latestSunrise = $latestData[report][sunrise];
-		echo "<br>Sunrise = " . $latestSunrise;
-
-		$latestSunset = $latestData[report][sunset];
-		echo "<br>Sunset = " . $latestSunset;
-
-
-		// GET DATE RANGE
-		if(isset($_POST["start"])){
-			$start = $_POST["start"];
-		}else{
-			$start = "2012-08-27";
-		}
-
-		if(isset($_POST["end"])){
-			$end = $_POST["end"];
-		}else{
-			$today = getdate();
-			$d = $today[mday] - 3;
-			if(strlen($d) == 1){
-				$d = '0'.$d;
-			}
-			$m = $today[mon];
-			if(strlen($m) == 1){
-				$m = '0'.$m;
-			}
-			$y = $today[year];
-			$end = $y."-".$m."-".$d;
-		}
-
-		echo "<form action='index.php' method='post'>
-				<table>
-					<tr>
-						<td>Start Date &emsp;</td>
-						<td><input type='date' name='start' id='start' min='2012-08-27' max='2015-05-21' value='".$start."'></td>
-					</tr>
-					<tr>
-						<td>End Date &emsp;</td>
-						<td><input type='date' name='end' id='end' min='2012-08-27' max='2015-05-21' value='".$end."'></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td><input type='submit'></td>
-					</tr>
-				</table>
-			</form>";
-
-		$temp_data = array('date' => '', 'max_temp' => '', 'min_temp' => '');
-		$max_temp = -100;
-		$min_temp = 100;
-		
-		// Get cURL resource
-		$curl = curl_init();
-		// Set some options - we are passing in a useragent too here
-		curl_setopt_array($curl, array(
-		    CURLOPT_RETURNTRANSFER => 1,
-		    CURLOPT_URL => "http://marsweather.ingenology.com/v1/archive/?terrestrial_date_start=".$start."&terrestrial_date_end=".$end
-		));
-		// Send the request & save response to $resp
-		$resp = curl_exec($curl);
-		// Close request to clear up some resources
-		curl_close($curl);
-
-		$data = json_decode($resp, true);
-
-		$count = 1;
-
-		while($data["next"]){
 			// Get cURL resource
 			$curl = curl_init();
 			// Set some options - we are passing in a useragent too here
 			curl_setopt_array($curl, array(
 			    CURLOPT_RETURNTRANSFER => 1,
-			    CURLOPT_URL => $data['next']
+			    CURLOPT_URL => "http://marsweather.ingenology.com/v1/latest/"
 			));
+			// Send the request & save response to $resp
+			$resp = curl_exec($curl);
+			// Close request to clear up some resources
+			curl_close($curl);
 
+			$latestData = json_decode($resp, true);
+
+			// Store Lastest Weather Variables
+			$latestDayMars = $latestData[report][sol];
+			$latestDateEarth = new DateTime($latestData[report][terrestrial_date]);
+			$latestDateEarth = $latestDateEarth->format('l M jS, Y');
+			$latestMinTemp = $latestData[report][min_temp];
+			$latestMaxTemp = $latestData[report][max_temp];
+			$latestPressure = $latestData[report][pressure];
+			$latestPressureString = $latestData[report][pressure_string];
+			$latestHumidity = $latestData[report][abs_humidity];
+			$latestWindSpeed = $latestData[report][wind_speed];
+			$latestWindDirection = $latestData[report][wind_direction];
+			$latestWeather = $latestData[report][atmo_opacity];
+			$latestSeason = $latestData[report][season];
+			$latestSunrise = new DateTime($latestData[report][sunrise]);
+			$latestSunrise = $latestSunrise->format(' g:i A');
+			$latestSunset = new DateTime($latestData[report][sunset]);
+			$latestSunset = $latestSunset->format(' g:i A');
+		?>
+
+
+		<div class="container" id="main-container">
+
+		Some sort of intro / summary stats / control here
+
+		<br>Days on Mars = <?=$latestDayMars?>
+		<br>Date on Earth = <?=$latestDateEarth?>
+		<br>Min Temp = <?=$latestMinTemp?>
+		<br>Max Temp = <?=$latestMaxTemp?>
+		<br>Pressure = <?=$latestPressure?>, <?=$latestPressureString?>
+		<br>Humidity = <?=$latestHumidity?>
+		<br>Wind = <?=$latestWindSpeed?>, <?= $latestWindDirection?>
+		<br>Weather = <?=$latestWeather?>
+		<br>Season = <?=$latestSeason?>
+		<br>Sunrise = <?=$latestSunrise?>
+		<br>Sunset = <?=$latestSunset?>
+
+
+		<?php
+
+			// GET DATE RANGE
+			if(isset($_POST["start"])){
+				$start = $_POST["start"];
+			}else{
+				$start = "2012-08-27";
+			}
+
+			if(isset($_POST["end"])){
+				$end = $_POST["end"];
+			}else{
+				$today = getdate();
+				$d = $today[mday] - 3;
+				if(strlen($d) == 1){
+					$d = '0'.$d;
+				}
+				$m = $today[mon];
+				if(strlen($m) == 1){
+					$m = '0'.$m;
+				}
+				$y = $today[year];
+				$end = $y."-".$m."-".$d;
+			}
+
+			echo "<form action='index.php' method='post'>
+					<table>
+						<tr>
+							<td>Start Date &emsp;</td>
+							<td><input type='date' name='start' id='start' min='2012-08-27' max='2015-05-21' value='".$start."'></td>
+						</tr>
+						<tr>
+							<td>End Date &emsp;</td>
+							<td><input type='date' name='end' id='end' min='2012-08-27' max='2015-05-21' value='".$end."'></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><input type='submit'></td>
+						</tr>
+					</table>
+				</form>";
+
+			$temp_data = array('date' => '', 'max_temp' => '', 'min_temp' => '');
+			$max_temp = -100;
+			$min_temp = 100;
+			
+			// Get cURL resource
+			$curl = curl_init();
+			// Set some options - we are passing in a useragent too here
+			curl_setopt_array($curl, array(
+			    CURLOPT_RETURNTRANSFER => 1,
+			    CURLOPT_URL => "http://marsweather.ingenology.com/v1/archive/?terrestrial_date_start=".$start."&terrestrial_date_end=".$end
+			));
 			// Send the request & save response to $resp
 			$resp = curl_exec($curl);
 			// Close request to clear up some resources
@@ -157,29 +140,44 @@
 
 			$data = json_decode($resp, true);
 
-			$i = 0;
-			while($data[results][$i][terrestrial_date]){
-				if($data[results][$i][terrestrial_date] && $data[results][$i][max_temp] && $data[results][$i][min_temp]){
-					$new_data = array('date' => $data[results][$i][terrestrial_date], 'max_temp' => $data[results][$i][max_temp], 'min_temp' => $data[results][$i][min_temp]);
-					array_push($temp_data, $new_data);
-					if($min_temp > $data[results][$i][min_temp]){
-						$min_temp = $data[results][$i][min_temp];
+			$count = 1;
+
+			while($data["next"]){
+				// Get cURL resource
+				$curl = curl_init();
+				// Set some options - we are passing in a useragent too here
+				curl_setopt_array($curl, array(
+				    CURLOPT_RETURNTRANSFER => 1,
+				    CURLOPT_URL => $data['next']
+				));
+
+				// Send the request & save response to $resp
+				$resp = curl_exec($curl);
+				// Close request to clear up some resources
+				curl_close($curl);
+
+				$data = json_decode($resp, true);
+
+				$i = 0;
+				while($data[results][$i][terrestrial_date]){
+					if($data[results][$i][terrestrial_date] && $data[results][$i][max_temp] && $data[results][$i][min_temp]){
+						$new_data = array('date' => $data[results][$i][terrestrial_date], 'max_temp' => $data[results][$i][max_temp], 'min_temp' => $data[results][$i][min_temp]);
+						array_push($temp_data, $new_data);
+						if($min_temp > $data[results][$i][min_temp]){
+							$min_temp = $data[results][$i][min_temp];
+						}
+						if($max_temp < $data[results][$i][max_temp]){
+							$max_temp = $data[results][$i][max_temp];
+						}
+						$count++;
 					}
-					if($max_temp < $data[results][$i][max_temp]){
-						$max_temp = $data[results][$i][max_temp];
-					}
-					$count++;
+					$i++;
 				}
-				$i++;
 			}
-		}
 		
 		$temp_data = array_slice($temp_data, 3);
 	?>
 
-	<div class="container" id="main-container">
-
-	Some sort of intro / summary stats / control here
 
 	<!-- container that holds the graph -->
 	<div id="graph" class="aGraph"></div>
