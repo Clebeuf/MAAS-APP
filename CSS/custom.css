@@ -1,62 +1,40 @@
-/*body {
-  font: 10px sans-serif;
+body {
+  font-family: "Helvetica Neue", Helvetica;
+  /*background-color: #DDDDDD !important;*/
+  }
+    
+path {
+  fill: none;
 }
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
+.data1 {
+  stroke: #D01A55;
+  stroke-width:2px;
+}
+
+.data2 {
+  stroke: #34DDDD;
+  stroke-width:2px;
+}
+
+.axis {
   shape-rendering: crispEdges;
 }
 
-.x.axis path {
-  display: none;
+.x.axis line, .x.axis path {
+  fill: none;
+  stroke: #333;
 }
 
-.line {
+.x.axis text {
+  font-size: 1em;
+}
+
+.y.axis line, .y.axis path {
   fill: none;
-  stroke: steelblue;
-  stroke-width: 1.5px;
-}*/
+  stroke: #333;
+}
 
-
-body {
-        font-family: "Helvetica Neue", Helvetica;
-      }
-    
-      /* tell the SVG path to be a thin blue line without any area fill */
-      path {
-        fill: none;
-      }
-      
-      .data1 {
-        stroke: steelblue;
-        stroke-width:2px;
-      }
-
-      .data2 {
-        stroke: orange;
-        stroke-width:2px;
-      }
-      
-      .axis {
-        shape-rendering: crispEdges;
-      }
-
-      .x.axis line, .x.axis path {
-        fill: none;
-        stroke: #333;
-      }
-
-      .x.axis text {
-        font-size: 1em;
-      }
-
-      .y.axis line, .y.axis path {
-        fill: none;
-        stroke: #333;
-      }
-      
-      .y.axis text {
-        font-size: 1em;
-      }
+.y.axis text {
+  font-size: 1em;
+}

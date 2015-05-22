@@ -18,11 +18,69 @@
 		<!-- CUSTOM STYLESHEET -->
 		<link rel="stylesheet" type="text/css" href="CSS/custom.css" />
 
+		<link rel="icon" type="image/png" href="favicon.png">
+
 	</head>
 
 	<body>
 
 	<?php
+
+
+		// GET LATEST DATA
+
+		// Get cURL resource
+		$curl = curl_init();
+		// Set some options - we are passing in a useragent too here
+		curl_setopt_array($curl, array(
+		    CURLOPT_RETURNTRANSFER => 1,
+		    CURLOPT_URL => "http://marsweather.ingenology.com/v1/latest/"
+		));
+		// Send the request & save response to $resp
+		$resp = curl_exec($curl);
+		// Close request to clear up some resources
+		curl_close($curl);
+
+		$latestData = json_decode($resp, true);
+
+		$output = "<script>console.log( 'Debug Objects: " . $latestData[report][terrestrial_date] . "' );</script>";
+		
+		$latestDayMars = $latestData[report][sol];
+		echo "Day on Mars = " . $latestDayMars;
+
+		$latestDateEarth = $latestData[report][terrestrial_date];
+		echo "<br>Date on Earth = " . $latestDateEarth;
+
+		$latestMinTemp = $latestData[report][min_temp];
+		echo "<br>Min Temp = " . $latestMinTemp;
+
+		$latestMaxTemp = $latestData[report][max_temp];
+		echo "<br>Max Temp = " . $latestMaxTemp;
+
+		$latestPressure = $latestData[report][pressure];
+		$latestPressureString = $latestData[report][pressure_string];
+		echo "<br>Pressure = " . $latestPressure . ", " . $latestPressureString;
+
+		$latestHumidity = $latestData[report][abs_humidity];
+		echo "<br>Humidity = " . $latestHumidity;
+
+		$latestWindSpeed = $latestData[report][wind_speed];
+		$latestWindDirection = $latestData[report][wind_direction];
+		echo "<br>Wind = " . $latestWindSpeed . ", " . $latestWindDirection;
+
+		$latestWeather = $latestData[report][atmo_opacity];
+		echo "<br>Weather = " . $latestWeather;
+		
+		$latestSeason = $latestData[report][season];
+		echo "<br>Season = " . $latestSeason;
+
+		$latestSunrise = $latestData[report][sunrise];
+		echo "<br>Sunrise = " . $latestSunrise;
+
+		$latestSunset = $latestData[report][sunset];
+		echo "<br>Sunset = " . $latestSunset;
+
+
 		// GET DATE RANGE
 		if(isset($_POST["start"])){
 			$start = $_POST["start"];
@@ -47,9 +105,20 @@
 		}
 
 		echo "<form action='index.php' method='post'>
-			<table><tr><td>Start Date &emsp;</td><td><input type='date' name='start' id='start' min='2012-08-27' max='2015-05-21' value='".$start."'></td></tr>
-			<tr><td>End Date &emsp;</td><td><input type='date' name='end' id='end' min='2012-08-27' max='2015-05-21' value='".$end."'></td></tr>
-			<tr><td></td><td><input type='submit'></td></tr></table>
+				<table>
+					<tr>
+						<td>Start Date &emsp;</td>
+						<td><input type='date' name='start' id='start' min='2012-08-27' max='2015-05-21' value='".$start."'></td>
+					</tr>
+					<tr>
+						<td>End Date &emsp;</td>
+						<td><input type='date' name='end' id='end' min='2012-08-27' max='2015-05-21' value='".$end."'></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type='submit'></td>
+					</tr>
+				</table>
 			</form>";
 
 		$temp_data = array('date' => '', 'max_temp' => '', 'min_temp' => '');
