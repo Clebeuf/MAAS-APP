@@ -2,14 +2,14 @@
 		/* implementation heavily influenced by http://bl.ocks.org/1166403 */
 
 		// define dimensions of graph
-		var m = [80, 80, 80, 80]; // margins (t-r-b-l)
-		var w = (document.getElementById("main-container").offsetWidth)*.8;;	// width
+		var m = [40, 80, 80, 80]; // margins (t-r-b-l)
+		var w = (document.getElementById("graph").offsetWidth)-160;	// width - padding
 		var h = (window.innerHeight)*.5; // height
 		
 		
 		// X scale
 		var x = d3.time.scale().domain([startTime, endTime]).range([0, w]);
-		x.tickFormat(d3.time.format("%Y-%m-%d"));
+		x.tickFormat(d3.time.format("%X-%b-%d"));
 
 
 		// Y scale
@@ -79,14 +79,13 @@
 			    .attr("text-anchor", "end")
 			    .attr("x", w)
 			    .attr("y", h - 6)
-			    .attr("dx", "1em")
+			    .attr("dx", "1.5em")
 			    .text("Date on Mars");
 
 			graph.append("text")
 			    .attr("class", "y label")
 			    .attr("text-anchor", "end")
 			    .attr("y", 6)
-			    .attr("dy", "1em")
+			    .attr("dy", "1.5em")
 			    .attr("transform", "rotate(-90)")
 			    .text("Temperature in °C");
-

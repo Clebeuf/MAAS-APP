@@ -1,19 +1,102 @@
+/*
+teal = rgba(55, 189, 156, 1)
+green = rgba(140, 194, 83, 1)
+orange = rgba(233, 87, 62, 1)
+yellow = rgba(246, 187, 67, 1)
+blue = rgba(59, 174, 218, 1)
+dark grey = rgba(50, 57, 65, 1)
+*/
+
+.green {
+  background-color: rgba(140, 194, 83, 1);
+}
+
+.teal {
+  background-color: rgba(55, 189, 156, 1);
+}
+
+.yellow {
+  background-color: rgba(246, 187, 67, 1);
+}
+
+.pink {
+  background-color: rgba(233, 87, 62, 1);
+}
+
 body {
   font-family: "Helvetica Neue", Helvetica;
-  /*background-color: #DDDDDD !important;*/
-  }
-    
+  font-size: 2em;
+  background-color: #ECECEC;
+}
+
+.page-header{
+  text-align: center;
+  margin-bottom: 40px;
+  background-color: #FFF;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  margin-top: 0px !important;
+  background-color: rgba(50, 57, 65, 1);
+  color: #FFF;
+}
+
+small {
+  color: #BABABA !important;
+}
+
+.box {
+  /*border: 1px solid #CCC;*/
+  margin-bottom: 30px;
+  min-height: 200px;
+  padding-bottom: 20px;
+  background-color: #FFF;
+}
+
+.box-header{
+  min-height: 150px;
+  padding-top: 30px;
+  font-size: 4em;
+  text-align: center;
+  /*border-bottom: 1px solid #CCC;*/
+  color: #FFF;
+}
+
+.graph-header{
+  background-color: rgba(140, 194, 83, 1);
+  text-align: center;
+  color: #FFF;
+}
+
+.box-content {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.form-control {
+  margin-right: 10px !important;
+}
+
+.form-box {
+  text-align: right;
+}
+
+.footer {
+  text-align: center;
+}
+
+/*D3.js styles*/
+
 path {
   fill: none;
 }
 
 .data1 {
-  stroke: #D01A55;
+  stroke: rgba(233, 87, 62, 1);
   stroke-width:2px;
 }
 
 .data2 {
-  stroke: #34DDDD;
+  stroke: rgba(59, 174, 218, 1);
   stroke-width:2px;
 }
 
@@ -27,7 +110,7 @@ path {
 }
 
 .x.axis text {
-  font-size: 1em;
+  font-size: .75em !important;
 }
 
 .y.axis line, .y.axis path {
@@ -36,5 +119,5 @@ path {
 }
 
 .y.axis text {
-  font-size: 1em;
+  font-size: 1em !important;
 }
